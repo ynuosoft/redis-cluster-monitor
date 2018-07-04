@@ -1,0 +1,44 @@
+
+#server
+server:
+  port: 8080
+  display-name: redis-info-monitor-job
+
+#spring
+spring:
+  application:
+    name: redis-info-monitor-job
+  main:
+    banner-mode: "off"
+  profiles: default
+#logging
+#elasticsearch conf 自定义配置
+
+
+#redis cron
+redisMonitorJob:
+  scheduledCron: "0/5 * * * * *"
+ynuosoft:
+  redis:
+    monitor:
+      clusterConfs:
+        - name: redis-cluster-01
+          pwd: redis-123456
+          cacheMin: 2
+          nodes:
+            - host: 192.168.1.101
+              port: 53450
+            - host: 192.168.1.102
+              port: 53450
+            - host: 192.168.1.102
+              port: 53450
+        - name: redis-cluster-02
+          pwd: redis-123456
+          cacheMin: 2
+          nodes:
+            - host: 192.168.1.101
+              port: 53460
+            - host: 192.168.1.102
+              port: 53460
+            - host: 192.168.1.102
+              port: 53460

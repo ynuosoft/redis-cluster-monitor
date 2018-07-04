@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="true">
+<property name="APP_Name" value="redis-cluster-monitor" />
+<contextName>${APP_Name}</contextName>
+
+
+    <springProfile name="dev">
+
+
+    </springProfile>
+
+    <springProfile name="test">
+
+    </springProfile>
+
+    <springProfile name="uat">
+
+    </springProfile>
+
+    <springProfile name="prod">
+
+    </springProfile>
+
+    <property name="logging.path" value="/ynuosoft_log/redis_cluster_monitor" />
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FileJob" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logging.path}/job_info.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logging.path}/job_info.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <MaxHistory>7</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}  [%-5level] [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FileRedisInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logging.path}/redis_info.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logging.path}/redis_info.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <MaxHistory>7</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+
+    <logger name="com.ynuosoft.redisinfo.monitor" level="info,error,fatal">
+        <appender-ref ref="Console" />
+        <appender-ref ref="FileJob" />
+    </logger>
+
+    <logger name="logger_redis_info" level="info">
+        <appender-ref ref="FileRedisInfo" />
+    </logger>
+
+</configuration>
